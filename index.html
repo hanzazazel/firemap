@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[40.99997513441918,-125.03116265454395],[43.22915704599156,-120.08478223972216]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_OpenStreetMap_0 = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0
+        });
+        overlay_OpenStreetMap_0.addTo(map);
+        map.addLayer(overlay_OpenStreetMap_0);
+        var overlay_CumulativeLandsat8firedetectionsforcurrentyear_1 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_landsat.map", "Cumulative Fire Detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        var overlay_Landsat8firedetectionsinthelast24hours_2 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_landsat.map", "Last 24 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_Landsat8firedetectionsinthelast24hours_2);
+        var overlay_Landsat8firedetectionsinthelast12hours_3 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_landsat.map", "Last 12 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_Landsat8firedetectionsinthelast12hours_3);
+        var overlay_Landsat8firedetectionsinthelast6hours_4 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_landsat.map", "Last 6 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_Landsat8firedetectionsinthelast6hours_4);
+        var overlay_CumulativeMODISfiredetectionsforcurrentyear_5 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus.map", "Cumulative Fire Detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        var overlay_MODISfiredetectionsinthelast24hours_6 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus.map", "Last 24 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_MODISfiredetectionsinthelast24hours_6);
+        var overlay_MODISfiredetectionsinthelast12hours_7 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus.map", "Last 12 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_MODISfiredetectionsinthelast12hours_7);
+        var overlay_MODISfiredetectionsinthelast6hours_8 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus.map", "Last 6 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_MODISfiredetectionsinthelast6hours_8);
+        var overlay_CumulativeVIIRSAFfiredetectionsforcurrentyear_9 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs-af.map", "Cumulative Fire Detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        var overlay_VIIRSAFfiredetectionsinthelast24hours_10 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs-af.map", "Last 24 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSAFfiredetectionsinthelast24hours_10);
+        var overlay_VIIRSAFfiredetectionsinthelast12hours_11 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs-af.map", "Last 12 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSAFfiredetectionsinthelast12hours_11);
+        var overlay_VIIRSAFfiredetectionsinthelast6hours_12 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs-af.map", "Last 6 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSAFfiredetectionsinthelast6hours_12);
+        var overlay_CumulativeVIIRSIBandfiredetectionsforcurrentyear_13 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs_iband.map", "Cumulative Fire Detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        var overlay_VIIRSIBandfiredetectionsinthelast24hours_14 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs_iband.map", "Last 24 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSIBandfiredetectionsinthelast24hours_14);
+        var overlay_VIIRSIBandfiredetectionsinthelast12hours_15 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs_iband.map", "Last 12 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSIBandfiredetectionsinthelast12hours_15);
+        var overlay_VIIRSIBandfiredetectionsinthelast6hours_16 = L.WMS.layer("https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=conus_viirs_iband.map", "Last 6 hour fire detections", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+        });
+        map.addLayer(overlay_VIIRSIBandfiredetectionsinthelast6hours_16);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{"VIIRS I Band fire detections in the last 6 hours": overlay_VIIRSIBandfiredetectionsinthelast6hours_16,"VIIRS I Band fire detections in the last 12 hours": overlay_VIIRSIBandfiredetectionsinthelast12hours_15,"VIIRS I Band fire detections in the last 24 hours": overlay_VIIRSIBandfiredetectionsinthelast24hours_14,"Cumulative VIIRS I Band fire detections for current year": overlay_CumulativeVIIRSIBandfiredetectionsforcurrentyear_13,"VIIRS-AF fire detections in the last 6 hours": overlay_VIIRSAFfiredetectionsinthelast6hours_12,"VIIRS-AF fire detections in the last 12 hours": overlay_VIIRSAFfiredetectionsinthelast12hours_11,"VIIRS-AF fire detections in the last 24 hours": overlay_VIIRSAFfiredetectionsinthelast24hours_10,"Cumulative VIIRS-AF fire detections for current year": overlay_CumulativeVIIRSAFfiredetectionsforcurrentyear_9,"MODIS fire detections in the last 6 hours": overlay_MODISfiredetectionsinthelast6hours_8,"MODIS fire detections in the last 12 hours": overlay_MODISfiredetectionsinthelast12hours_7,"MODIS fire detections in the last 24 hours": overlay_MODISfiredetectionsinthelast24hours_6,"Cumulative MODIS fire detections for current year": overlay_CumulativeMODISfiredetectionsforcurrentyear_5,"Landsat 8 fire detections in the last 6 hours": overlay_Landsat8firedetectionsinthelast6hours_4,"Landsat 8 fire detections in the last 12 hours": overlay_Landsat8firedetectionsinthelast12hours_3,"Landsat 8 fire detections in the last 24 hours": overlay_Landsat8firedetectionsinthelast24hours_2,"Cumulative Landsat 8 fire detections for current year": overlay_CumulativeLandsat8firedetectionsforcurrentyear_1,"OpenStreetMap": overlay_OpenStreetMap_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
